@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder Form</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resume.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        Resume Builder By <br />
+        <span>Hasan Raza</span>
+      </header>
+      
+
+      <form action="#">
+        <div class="form first">
+          <div class="details personal">
+            <span class="title">Personal Details</span>
+
+            <div class="fields">
+              <div class="input-field">
+                  <label>First Name</label>
+                  <input type="text" id="first-name" placeholder="e.g. Emily" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Last Name</label>
+                  <input type="text" id="last-name" placeholder="e.g. Smith" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Your Image:</label>
+                  <input type="file" id="image-upload" />
+              </div>
+          
+              <div class="input-field">
+                  <label>Designation</label>
+                  <input type="text" id="designation" placeholder="e.g. Software Engineer" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Mobile Number</label>
+                  <input type="text" id="mobile-number" placeholder="e.g. +1 234 567 8901" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Email</label>
+                  <input type="email" id="my-email" placeholder="e.g. emily.smith@example.com" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Religion</label>
+                  <input type="text" id="religion" placeholder="e.g. Islam" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Nationality</label>
+                  <input type="text" id="nationality" placeholder="e.g. American" required />
+              </div>
+          
+              <div class="input-field">
+                  <label>Date of Birth</label>
+                  <input type="date" id="dob" required />
+              </div>
+
+              <div class="input-field languages-container">
+                <label>Language</label>
+                <input
+                  type="text"
+                  id="languageInput"
+                  placeholder="e.g. English, Spanish"
+                />
+                <div id="languagesList"></div>
+              </div>
+              
+          
+              <div class="input-field">
+                <label>LinkedIn</label>
+                <input type="url" id="linkedin-input" placeholder="e.g. https://www.linkedin.com/in/your-profile" />
+            </div>
+            
+            <div class="input-field">
+                <label>GitHub</label>
+                <input type="url" id="github-input" placeholder="e.g. https://github.com/your-profile" />
+            </div>
+          
+              <div class="textarea-field">
+                  <label>Address</label>
+                  <textarea id="my-address" placeholder="e.g. 123 Main St, Apt 4B, Springfield, IL 62704"></textarea>
+              </div>
+          </div>
+          
+          
+            
+          </div>
+
+          <div class="line"></div>
+
+          <div class="details education">
+            <span class="title">Education Information</span>
+        
+            <div class="fields" id="educationFields">
+                <div class="input-field">
+                    <label>Institution Name</label>
+                    <input type="text" id="institution-name" placeholder="Enter the institution name" required />
+                </div>
+        
+                <div class="input-field">
+                    <label>Degree</label>
+                    <input type="text" id="degree" placeholder="Enter the degree" required />
+                </div>
+        
+                <div class="input-field">
+                    <label>Field of Study</label>
+                    <input type="text" id="field-of-study" placeholder="Enter your field of study" required />
+                </div>
+        
+                <div class="input-field">
+                    <label>Start Date</label>
+                    <input type="date" id="start-date" required />
+                </div>
+        
+                <div class="input-field">
+                    <label>End Date</label>
+                    <input type="text" id="end-date" required />
+                </div>
+        
+                <div class="input-field">
+                    <label>Grade/Percentage</label>
+                    <input type="text" id="grade" placeholder="Enter your grade or percentage" required />
+                </div>
+            </div>
+            <button type="button" id="addEducationBtn">+ Add Education</button>
+            <button type="button" id="removeEducationBtn" style="display:none;">Remove Last Education</button>
+        </div>
+        
+        
+          <div class="line"></div>
+
+          <div class="details skills">
+            <span class="title">Skills</span>
+            <div class="skills-container">
+                <input
+                    type="text"
+                    id="skillInput"
+                    placeholder="Enter a skill and press Enter"
+                />
+                <div id="skillsList"></div>
+            </div>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="details experience">
+            <span class="title">Experience</span>
+          
+            <div class="fields" id="experienceFields">
+              <div class="input-field">
+                <label>Company Name</label>
+                <input type="text" id="company-name" placeholder="Enter the company name" required />
+              </div>
+          
+              <div class="input-field">
+                <label>Job Title</label>
+                <input type="text" id="job-title" placeholder="Enter the job title" required />
+              </div>
+          
+              <div class="input-field">
+                <label>Field of Work</label>
+                <input type="text" id="field-of-work" placeholder="Enter your field of work" required />
+              </div>
+          
+              <div class="input-field">
+                <label>Start Date</label>
+                <input type="date" id="start-date-exp" required />
+              </div>
+          
+              <div class="input-field">
+                <label>End Date</label>
+                <input type="text" id="end-date-exp" placeholder="Enter the end date or 'Present'" required />
+              </div>
+          
+              <div class="input-field">
+                <label>Responsibilities</label>
+                <input type="text" id="responsibilities" placeholder="Enter your responsibilities" required />
+              </div>
+            </div>
+          
+            <button type="button" id="addExperienceBtn">+ Add Experience</button>
+            <button type="button" id="removeExperienceBtn" style="display: none;">- Remove Last Experience</button>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="details projects">
+            <span class="title">Projects</span>
+
+            <div class="fields" id="projectFields">
+              <div class="input-field">
+                <label>Project Title</label>
+                <input
+                  type="text"
+                  placeholder="Enter the project title"
+                  required
+                />
+              </div>
+
+              <div class="input-field">
+                <label>Description</label>
+                <input
+                  type="text"
+                  placeholder="Enter a brief description"
+                  required
+                />
+              </div>
+
+              <div class="input-field">
+                <label>Link</label>
+                <input
+                  type="url"
+                  placeholder="Enter the project link"
+                  required
+                />
+              </div>
+
+            </div>
+
+            <button type="button" id="addProjectBtn">
+              + Add Project
+            </button>
+            <button type="button" id="removeProjectBtn" style="display:none;">Remove Last Project</button>
+          </div>
+
+        <div class="line"></div>
+
+      </form>
+
+      <div class="resume-wrapper" id="resume">
+        <div class="resume-left">
+          <div class="profile-section">
+            <div class="profile-image-box" id="image-upload">
+              <img id="profile-image" src="images/default-image.png" alt="Profile Image" />
+            </div>
+            <h2 id="name"><br /></h2>
+            <span id="job-title"></span>
+          </div>
+      
+          <div class="resume-contact-info">
+            <h3 class="section-title">Contact Info</h3>
+            <ul>
+              <li>
+                <span class="icon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                <span class="resume-text"><a id="phone" href="tel:" target="_blank">Mobile Number</a></span>
+              </li>
+              <li>
+                <span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                <span class="resume-text"><a id="email" href="mailto:" target="_blank">Email Address</a></span>
+              </li>
+              <li>
+                <span class="icon"><i class="fa fa-linkedin-square" aria-hidden="true"></i></span>
+                <span class="resume-text" id="linkedin-display">
+                    <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+                </span>
+            </li>
+            <li>
+                <span class="icon"><i class="fa fa-github-square" aria-hidden="true"></i></span>
+                <span class="resume-text" id="github-display">
+                    <a href="https://github.com/your-profile" target="_blank" rel="noopener noreferrer">GitHub Profile</a>
+                </span>
+            </li>
+            
+            </ul>
+            
+            
+          </div>
+
+          <div class="skills-section">
+            <h3 class="section-title">Skills</h3>
+            <ul id="skills-list"></ul>
+          </div>
+
+          <div class="languages-section">
+            <h3 class="section-title">Languages</h3>
+            <ul id="languages-list"></ul>
+          </div>
+        </div>
+
+        <div class="resume-right">
+        
+          <div class="education-section">
+            <h3 class="section-title">Education History</h3>
+            <ul id="education-list">
+                <!-- Dynamic content will be added here -->
+            </ul>
+          </div>
+        
+        
+          <div class="about-section">
+            <h3 class="section-title">About</h3>
+            <div class="about-info">
+              <div class="resume-label">
+                <p><strong>Date of Birth:</strong></p>
+                <p><strong>Religion:</strong></p>
+                <p><strong>Nationality:</strong></p>
+                <p><strong>Address:</strong></p>
+              </div>
+              <div class="resume-value">
+                <p id="dob-resume"></p>
+                <p id="religion-resume"></p>
+                <p id="nationality-resume"></p>
+                <p id="address"></p>
+              </div>
+            </div>
+          </div>
+    
+          <div class="experience-section">
+            <h3 class="section-title">Experience</h3>
+            <ul id="experience-list"></ul>
+          </div>
+    
+          <div class="projects-section">
+            <h3 class="section-title">Projects</h3>
+            <ul id="projects-list"></ul>
+          </div>
+        </div>
+      </div>
+      
+      <button type="button" id="downloadResumeBtn">Download Resume</button>
+
+
+    </div>
+      
+
+
+    
+
+    <script src="script.js"></script>
+  </body>
+</html>

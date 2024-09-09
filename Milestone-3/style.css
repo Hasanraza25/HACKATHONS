@@ -1,0 +1,395 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: lightblue;
+}
+
+.container {
+  position: relative;
+  max-width: 1100px;
+  width: 100%;
+  background: #fff;
+  border-radius: 6px;
+  padding: 30px;
+  margin: 20px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.container header {
+  position: relative;
+  font-size: 36px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container header span {
+  display: inline-block;
+  font-size: 42px;
+  font-weight: 800;
+  color: #007bff;
+  background: linear-gradient(45deg, #007bff, #00d4ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.container header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background-color: #007bff;
+  border-radius: 8px;
+  animation: expand 1.5s ease-in-out infinite alternate;
+}
+
+/* Keyframes for underline animation */
+@keyframes expand {
+  0% {
+    width: 30px;
+  }
+  100% {
+    width: 100px;
+  }
+}
+
+.container form {
+  position: relative;
+  min-height: 490px;
+  background-color: #fff;
+}
+
+.container form .details {
+  margin-top: 10px;
+}
+
+.container form .title {
+  font-size: 25px;
+  font-weight: 600;
+  margin: 6px 0;
+  color: #333;
+  margin-top: 20px;
+}
+
+.container form .fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+
+form .fields .input-field {
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+
+form .fields .textarea-field {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+form .fields textarea{
+  padding: 7px 0;
+}
+
+
+form .fields .input-field label,
+form .fields .textarea-field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2e2e2e;
+  margin-bottom: 8px;
+}
+
+form .fields input,
+form .fields textarea {
+  padding-left: 10px;
+  color: #333;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: .95rem;
+  font-weight: 400;
+}
+
+form .fields input {
+  height: 40px;
+}
+
+form .fields textarea {
+  height: 80px;
+  resize: none;
+}
+
+form .fields input:is(:focus, :valid),
+form .fields textarea:is(:focus, :valid) {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+
+form .fields input[type="file"] {
+  padding-top: 7px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd; 
+  margin: 15px 0;
+}
+
+.education{
+  margin-top: 30px;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.icon-btn i {
+  margin-right: 8px; 
+}
+
+.add-btn {
+  color: #4caf50; 
+}
+
+.add-btn:hover {
+  background: #e8f5e9;
+}
+
+.remove-btn {
+  color: #f44336;
+}
+
+.remove-btn:hover {
+  background: #ffebee;
+}
+
+.skills {
+  margin-top: 30px;
+}
+
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skills-container input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.skills-container input:focus {
+  border-color: lightblue;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.skill-item {
+  background-color: #e0f7fa; 
+  color: #00796b;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+  padding: 7px;
+}
+
+.remove-btn:hover {
+  color: #b71c1c;
+}
+
+#removeEducationBtn, #removeExperienceBtn, #removeProjectBtn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  display: none; 
+}
+
+#removeEducationBtn:hover, #removeExperienceBtn:hover, #removeProjectBtn:hover {
+  background-color: #c0392b;
+}
+
+.experience {
+  margin-top: 30px;
+}
+
+.experience-entry {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #fafafa;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.experience-entry .input-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.experience-entry .input-field label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.experience-entry .input-field input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+.experience-entry .remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #d32f2f;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+.experience-entry .remove-btn:hover {
+  background-color: #b71c1c;
+}
+
+#addExperienceBtn, #addEducationBtn, #addProjectBtn {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+#addExperienceBtn:hover, #addEducationBtn:hover, #addProjectBtn:hover {
+  background-color: #388e3c;
+}
+
+.projects {
+  margin-top: 30px;
+}
+
+#downloadResumeBtn{
+  background-color: #1e00ff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+
+/* RESPONSIVE MEDIA QUERIES */
+
+@media (max-width: 768px) {
+  form .fields .input-field, 
+  form .fields .textarea-field {
+    width: calc(100% / 2 - 10px); 
+  }
+  
+  form .fields .textarea-field {
+    width: 100%; 
+  }
+}
+
+@media (max-width: 576px) {
+  form .fields .input-field, 
+  form .fields .textarea-field {
+    width: 100%;
+  }
+  
+  .container header {
+    font-size: 24px;
+  }
+}
+
+
+@media(max-width: 1000px){
+  .container .resume-wrapper{
+    margin: 0;
+  }
+}
+
+
