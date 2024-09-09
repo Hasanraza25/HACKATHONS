@@ -15,7 +15,13 @@
 .resume-left {
   position: relative;
   background-color: #2a77ab;
+}
+
+@media(min-width: 1000px){
+.resume-left{
   padding: 40px;
+
+}
 }
 .profile-section {
     position: relative;
@@ -101,18 +107,21 @@
   margin-bottom: 5px;
 }
 
-.resume-contact-info ul li .resume-text {
+.resume-contact-info ul li .resume-text a{
   font-size: 14px;
   text-decoration: none;
-  padding-right: 0;
+  padding-right: -2rem;
+  padding: 0;
   margin-left: 10px;
   color: #fff;
   text-decoration: none;
 }
 
 @media(max-width: 1000px){
-  .resume-contact-info ul li .resume-text {
-    font-size: 12px;
+  .resume-contact-info ul li .resume-text a{
+    font-size: 13px;
+    /* padding-right: -5rem; */
+
   }
 }
 
