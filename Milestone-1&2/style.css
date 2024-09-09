@@ -185,9 +185,6 @@ body{
     width: 100%;
 }
 
-.objectives{
-    margin-top: 40px;
-}
 .education .title, .about .title, .projects .title, .experience .title {
     color: #000;
     font-weight: 700;
