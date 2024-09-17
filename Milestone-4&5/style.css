@@ -349,7 +349,15 @@ form .fields input[type="file"] {
   margin-top: 30px;
 }
 
-#downloadResumeBtn, #downloadResumePngBtn{
+.btns{
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#downloadResumeBtn, #editResumeBtn, #downloadResumePngBtn, #generateShareLinkBtn{
+  margin: 0 auto;
   background-color: #1e00ff;
   color: #fff;
   border: none;
@@ -359,6 +367,7 @@ form .fields input[type="file"] {
   font-size: 16px;
   margin-top: 20px;
 }
+
 
 
 /* RESPONSIVE MEDIA QUERIES */

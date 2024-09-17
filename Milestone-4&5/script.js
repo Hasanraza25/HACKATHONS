@@ -3,26 +3,35 @@ document.getElementById("languageInput").addEventListener("input", function () {
   const languageInput = document.getElementById("languageInput");
   const inputText = languageInput.value.trim();
 
+  // Check if the input contains a comma
   if (inputText.includes(",")) {
     // Split the input by commas and remove any empty items
     const languages = inputText.split(",").map(lang => lang.trim()).filter(lang => lang !== "");
+
+    // Add each language to the resume and clear the input field
     languages.forEach(addLanguageToResume);
+
+    // Clear the input field after adding languages
     languageInput.value = "";
   }
 });
 
+// Function to add a language to the resume's languages section
 function addLanguageToResume(language) {
   const languagesList = document.getElementById("languages-list");
 
   // Check if the language already exists (to avoid duplicates)
   const existingLanguages = Array.from(languagesList.getElementsByTagName("li")).map(li => li.textContent.toLowerCase());
   if (!existingLanguages.includes(language.toLowerCase())) {
-
+    // Create a new list item for the language
     const languageItem = document.createElement("li");
     languageItem.textContent = language;
+
+    // Append the new language item to the list in the resume section
     languagesList.appendChild(languageItem);
   }
 }
+
 // Event listener for pressing the "Enter" key in the input field
 document.getElementById("skillInput").addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
@@ -263,7 +272,7 @@ function addEducation() {
 
     // Update the resume display
     updateResume();
-
+    storeFormDataInSession(); 
     // Clear input fields
     document.getElementById("institution-name").value = "";
     document.getElementById("degree").value = "";
@@ -280,7 +289,8 @@ function addEducation() {
 function removeLastEducation() {
   if (educationEntries.length > 0) {
     educationEntries.pop(); // Remove the last entry from the array
-    updateResume(); // Update the resume to reflect the change
+    updateResume(); 
+    storeFormDataInSession();
   } else {
     alert("No education entries to remove.");
   }
@@ -379,7 +389,7 @@ function addExperience() {
 
     // Update the experience display
     updateExperience();
-
+    storeFormDataInSession();
     // Clear input fields
     document.getElementById("company-name").value = "";
     document.getElementById("job-title").value = "";
@@ -397,6 +407,7 @@ function removeLastExperience() {
   if (experienceEntries.length > 0) {
     experienceEntries.pop(); // Remove the last entry from the array
     updateExperience(); // Update the resume to reflect the change
+    storeFormDataInSession();
   } else {
     alert("No experience entries to remove.");
   }
@@ -464,7 +475,7 @@ function addProject() {
 
     // Update the project display
     updateProjects();
-
+    storeFormDataInSession();
     // Clear input fields
     document.querySelector("#projectFields input[placeholder='Enter the project title']").value = "";
     document.querySelector("#projectFields input[placeholder='Enter a brief description']").value = "";
@@ -479,6 +490,7 @@ function removeLastProject() {
   if (projectEntries.length > 0) {
     projectEntries.pop(); // Remove the last entry from the array
     updateProjects(); // Update the project list to reflect the change
+    storeFormDataInSession();
   } else {
     alert("No project entries to remove.");
   }
@@ -507,8 +519,6 @@ window.onload = function(){
   })
 }
 
-
-
 document.getElementById('downloadResumeBtn').addEventListener('click', function () {
   // Use html2canvas to capture the resume
   html2canvas(document.getElementById('resume'), {
@@ -526,8 +536,8 @@ document.getElementById('downloadResumeBtn').addEventListener('click', function 
     var imgHeight = canvas.height;
 
     // Convert canvas width/height from pixels to mm for jsPDF
-    var pdfWidth = (imgWidth * 25.4) / 96;
-    var pdfHeight = (imgHeight * 25.4) / 96;
+    var pdfWidth = (imgWidth * 25.4) / 96; 
+    var pdfHeight = (imgHeight * 25.4) / 96; 
 
     // Create a PDF of the exact size of the canvas
     var pdf = new jsPDF('p', 'mm', [pdfWidth, pdfHeight]);
@@ -541,7 +551,6 @@ document.getElementById('downloadResumeBtn').addEventListener('click', function 
     console.error('Error generating PDF:', error);
   });
 });
-
 
 document.getElementById('downloadResumePngBtn').addEventListener('click', function() {
   html2canvas(document.getElementById('resume'), { 
@@ -565,3 +574,234 @@ document.getElementById('downloadResumePngBtn').addEventListener('click', functi
       console.error('Error generating image:', error);
   });
 });
+
+// Function to show the form and focus on the first input field
+function enableEdit() {
+  // Hide the resume and show the form
+  document.querySelector("form").style.display = "block"; // Show form
+
+  // Focus on the first form input field ("First Name")
+  document.getElementById("first-name").focus(); 
+}
+
+// Add event listener to the "Edit Resume" button
+document.getElementById("editResumeBtn").addEventListener("click", function () {
+  enableEdit(); // Enable editing by focusing on the first form input field
+});
+
+// Save form data and profile image in localStorage
+document.getElementById("generateShareLinkBtn").addEventListener("click", function () {
+  const resumeData = {
+    firstName: document.getElementById("first-name").value,
+    lastName: document.getElementById("last-name").value,
+    designation: document.getElementById("designation").value,
+    mobileNumber: document.getElementById("mobile-number").value,
+    email: document.getElementById("my-email").value,
+    linkedinProfile: document.getElementById("linkedin-input").value,
+    githubProfile: document.getElementById("github-input").value,
+    dob: document.getElementById("dob").value,
+    religion: document.getElementById("religion").value,
+    nationality: document.getElementById("nationality").value,
+    address: document.getElementById("my-address").value,
+    profileImage: sessionStorage.getItem("profileImage"),  // Store profile image from sessionStorage
+    education: educationEntries,
+    experience: experienceEntries,
+    projects: projectEntries,
+    skills: Array.from(document.querySelectorAll("#skills-list li")).map(li => li.textContent),
+    languages: Array.from(document.querySelectorAll("#languages-list li")).map(li => li.textContent)
+  };
+
+  // Store everything in localStorage
+  localStorage.setItem("resumeData", JSON.stringify(resumeData));
+
+  // Redirect to share.html
+  window.location.href = "share.html";
+});
+
+
+// Function to add a skill dynamically
+document.getElementById("skillInput").addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const skillInput = document.getElementById("skillInput");
+    const skill = skillInput.value.trim();
+
+    if (skill) {
+      addSkillToResume(skill);
+      skillInput.value = ""; // Clear the input
+    }
+  }
+});
+
+function addSkillToResume(skill) {
+  const skillsList = document.getElementById("skillsList");
+  const skillItem = document.createElement("li");
+  skillItem.textContent = skill;
+  skillsList.appendChild(skillItem);
+}
+// Function to store form data in sessionStorage when the user inputs data
+function storeFormDataInSession() {
+  const resumeData = {
+    firstName: document.getElementById("first-name").value,
+    lastName: document.getElementById("last-name").value,
+    designation: document.getElementById("designation").value,
+    mobileNumber: document.getElementById("mobile-number").value,
+    email: document.getElementById("my-email").value,
+    linkedinProfile: document.getElementById("linkedin-input").value,
+    githubProfile: document.getElementById("github-input").value,
+    dob: document.getElementById("dob").value,
+    religion: document.getElementById("religion").value,
+    nationality: document.getElementById("nationality").value,
+    address: document.getElementById("my-address").value,
+
+    // Storing education, experience, and project entries
+    education: educationEntries, // Assuming this is an array storing education entries
+    experience: experienceEntries, // Assuming this is an array storing experience entries
+    projects: projectEntries, // Assuming this is an array storing project entries
+    skills: Array.from(document.querySelectorAll("#skills-list li")).map(li => li.textContent),
+    languages: Array.from(document.querySelectorAll("#languages-list li")).map(li => li.textContent),
+  };
+
+  // Store the updated resume data in sessionStorage
+  sessionStorage.setItem("resumeData", JSON.stringify(resumeData));
+
+  // Debugging: Check if the data is saved correctly
+  console.log("Stored Data:", JSON.parse(sessionStorage.getItem("resumeData")));
+}
+
+// Add event listeners to all input fields to save data to sessionStorage as the user types
+document.querySelectorAll('input, textarea').forEach(input => {
+  input.addEventListener('input', storeFormDataInSession);
+});
+
+// Function to populate the form and resume from sessionStorage
+function populateResumeFromSession() {
+  const resumeData = JSON.parse(sessionStorage.getItem("resumeData"));
+
+  if (resumeData) {
+    // Profile Section
+    document.getElementById("name").innerHTML = `${resumeData.firstName} ${resumeData.lastName}`;
+    document.getElementById("my-job-title").innerHTML = resumeData.designation || "";
+
+    // Contact Info Section
+    document.getElementById("phone").textContent = resumeData.mobileNumber || "Mobile Number";
+    document.getElementById("phone").href = `tel:${resumeData.mobileNumber}`;
+    document.getElementById("email").textContent = resumeData.email || "Email Address";
+    document.getElementById("email").href = `mailto:${resumeData.email}`;
+    document.querySelector("#linkedin-display a").textContent = resumeData.linkedinProfile || "LinkedIn Profile";
+    document.querySelector("#linkedin-display a").href = `https://www.linkedin.com/in/${resumeData.linkedinProfile}`;
+    document.querySelector("#github-display a").textContent = resumeData.githubProfile || "GitHub Profile";
+    document.querySelector("#github-display a").href = `https://github.com/${resumeData.githubProfile}`;
+
+     // About Section
+     document.getElementById("dob-resume").textContent = resumeData.dob || "";
+     document.getElementById("religion-resume").textContent = resumeData.religion || "";
+     document.getElementById("nationality-resume").textContent = resumeData.nationality || "";
+     document.getElementById("address").textContent = resumeData.address || "";
+
+    // Skills Section
+    const skillsList = document.getElementById("skills-list");
+    skillsList.innerHTML = ""; // Clear existing skills
+    resumeData.skills.forEach(skill => {
+      const li = document.createElement("li");
+      li.textContent = skill;
+      skillsList.appendChild(li);
+    });
+
+    // Languages Section
+    const languagesList = document.getElementById("languages-list");
+    languagesList.innerHTML = ""; 
+    resumeData.languages.forEach(language => {
+      const li = document.createElement("li");
+      li.textContent = language;
+      languagesList.appendChild(li);
+    });
+
+    // Education Section
+    const educationList = document.getElementById("education-list");
+    educationList.innerHTML = "";
+    resumeData.education.forEach(entry => {
+      const li = document.createElement("li");
+      li.innerHTML = `<i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                      <strong>${entry.institutionName}</strong> – ${entry.degree} in ${entry.fieldOfStudy} |
+                      <em>${entry.startDate} - ${entry.endDate}</em> | Grade: ${entry.grade}`;
+      educationList.appendChild(li);
+    });
+
+    // Experience Section
+    const experienceList = document.getElementById("experience-list");
+    experienceList.innerHTML = "";
+    resumeData.experience.forEach(entry => {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${entry.jobTitle}</strong> at ${entry.companyName}<br />
+                      <em>${entry.startDate} - ${entry.endDate}</em><br />
+                      ${entry.fieldOfWork}<br />Responsibilities: ${entry.responsibilities}`;
+      experienceList.appendChild(li);
+    });
+
+    // Projects Section
+    const projectsList = document.getElementById("projects-list");
+    projectsList.innerHTML = "";
+    resumeData.projects.forEach(entry => {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${entry.title}</strong> – ${entry.description}<br />
+                      <a href="${entry.link}" target="_blank">View Project</a>`;
+      projectsList.appendChild(li);
+    });
+  }
+}
+
+// Call the function to populate the resume when the page loads
+document.addEventListener("DOMContentLoaded", populateResumeFromSession);
+
+
+function addEducationToForm(entry) {
+  document.getElementById("institution-name").value = entry.institutionName || "";
+  document.getElementById("degree").value = entry.degree || "";
+  document.getElementById("field-of-study").value = entry.fieldOfStudy || "";
+  document.getElementById("start-date").value = entry.startDate || "";
+  document.getElementById("end-date").value = entry.endDate || "";
+  document.getElementById("grade").value = entry.grade || "";
+}
+
+function addExperienceToForm(entry) {
+  document.getElementById("company-name").value = entry.companyName || "";
+  document.getElementById("job-title").value = entry.jobTitle || "";
+  document.getElementById("field-of-work").value = entry.fieldOfWork || "";
+  document.getElementById("start-date-exp").value = entry.startDate || "";
+  document.getElementById("end-date-exp").value = entry.endDate || "";
+  document.getElementById("responsibilities").value = entry.responsibilities || "";
+}
+
+function addProjectToForm(entry) {
+  document.querySelector("#projectFields input[placeholder='Enter the project title']").value = entry.title || "";
+  document.querySelector("#projectFields input[placeholder='Enter a brief description']").value = entry.description || "";
+  document.querySelector("#projectFields input[placeholder='Enter the project link']").value = entry.link || "";
+}
+
+function addEducation() {
+  const entry = {
+    institutionName: document.getElementById("institution-name").value,
+    degree: document.getElementById("degree").value,
+    fieldOfStudy: document.getElementById("field-of-study").value,
+    startDate: document.getElementById("start-date").value,
+    endDate: document.getElementById("end-date").value,
+    grade: document.getElementById("grade").value
+  };
+
+  // Add entry to the array
+  educationEntries.push(entry);
+  
+  // Update the resume display
+  updateResume();
+}
+// Function to populate the profile image
+function populateProfileImage() {
+  const imageDataURL = sessionStorage.getItem("profileImage");
+  if (imageDataURL) {
+    document.getElementById("profile-image").src = imageDataURL;
+  }
+}
+
+// Call the function to populate the profile image when the page loads
+document.addEventListener("DOMContentLoaded", populateProfileImage);

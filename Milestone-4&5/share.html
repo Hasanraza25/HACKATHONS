@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Resume</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resume.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+    />
+  </head>
+  <body>
+    <div class="resume-wrapper" id="resume">
+      <div class="resume-left">
+        <div class="profile-section">
+          <div class="profile-image-box" id="image-upload">
+            <img
+              id="profile-image"
+              src="images/default-image.png"
+              alt="Profile Image"
+            />
+          </div>
+          <h2 id="name"><br /></h2>
+          <span id="job-title"></span>
+        </div>
+
+        <div class="resume-contact-info">
+          <h3 class="section-title">Contact Info</h3>
+          <ul>
+            <li>
+              <span class="icon"
+                ><i class="fa fa-phone" aria-hidden="true"></i
+              ></span>
+              <span class="resume-text"
+                ><a id="phone" href="tel:" target="_blank"
+                  >Mobile Number</a
+                ></span
+              >
+            </li>
+            <li>
+              <span class="icon"
+                ><i class="fa fa-envelope" aria-hidden="true"></i
+              ></span>
+              <span class="resume-text"
+                ><a id="email" href="mailto:" target="_blank"
+                  >Email Address</a
+                ></span
+              >
+            </li>
+            <li>
+              <span class="icon"
+                ><i class="fa fa-linkedin-square" aria-hidden="true"></i
+              ></span>
+              <span class="resume-text" id="linkedin-display">
+                <a
+                  href="#"
+                  id="linkedin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn Profile</a
+                >
+              </span>
+            </li>
+            <li>
+              <span class="icon"
+                ><i class="fa fa-github-square" aria-hidden="true"></i
+              ></span>
+              <span class="resume-text" id="github-display">
+                <a
+                  href="#"
+                  id="github"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub Profile</a
+                >
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="skills-section">
+          <h3 class="section-title">Skills</h3>
+          <ul id="skills-list"></ul>
+        </div>
+
+        <div class="languages-section">
+          <h3 class="section-title">Languages</h3>
+          <ul id="languages-list"></ul>
+        </div>
+      </div>
+
+      <div class="resume-right">
+        <div class="education-section">
+          <h3 class="section-title">Education History</h3>
+          <ul id="education-list"></ul>
+        </div>
+
+        <div class="about-section">
+          <h3 class="section-title">About</h3>
+          <div class="about-info">
+            <div class="resume-label">
+              <p><strong>Date of Birth:</strong></p>
+              <p><strong>Religion:</strong></p>
+              <p><strong>Nationality:</strong></p>
+              <p><strong>Address:</strong></p>
+            </div>
+            <div class="resume-value">
+              <p id="dob"></p>
+              <p id="religion"></p>
+              <p id="nationality"></p>
+              <p id="address"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-section">
+          <h3 class="section-title">Experience</h3>
+          <ul id="experience-list"></ul>
+        </div>
+
+        <div class="projects-section">
+          <h3 class="section-title">Projects</h3>
+          <ul id="projects-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Retrieve the resume data from localStorage
+        const resumeData = JSON.parse(localStorage.getItem("resumeData"));
+
+        if (resumeData) {
+          // Populate personal information
+          document.getElementById(
+            "name"
+          ).textContent = `${resumeData.firstName} ${resumeData.lastName}`;
+          document.getElementById("job-title").textContent =
+            resumeData.designation;
+          document.getElementById("phone").textContent =
+            resumeData.mobileNumber;
+          document.getElementById(
+            "phone"
+          ).href = `tel:${resumeData.mobileNumber}`;
+          document.getElementById("email").textContent = resumeData.email;
+          document.getElementById("email").href = `mailto:${resumeData.email}`;
+          document.getElementById("linkedin").textContent =
+            resumeData.linkedinProfile;
+          document.getElementById(
+            "linkedin"
+          ).href = `https://www.linkedin.com/in/${resumeData.linkedinProfile}`;
+          document.getElementById("github").textContent =
+            resumeData.githubProfile;
+          document.getElementById(
+            "github"
+          ).href = `https://github.com/${resumeData.githubProfile}`;
+          document.getElementById("dob").textContent = resumeData.dob;
+          document.getElementById("religion").textContent = resumeData.religion;
+          document.getElementById("nationality").textContent =
+            resumeData.nationality;
+          document.getElementById("address").textContent = resumeData.address;
+
+          // Populate profile image
+          if (resumeData.profileImage) {
+            document.getElementById("profile-image").src =
+              resumeData.profileImage;
+          }
+
+          // Populate skills
+          const skillsList = document.getElementById("skills-list");
+          resumeData.skills.forEach((skill) => {
+            const li = document.createElement("li");
+            li.textContent = skill;
+            skillsList.appendChild(li);
+          });
+
+          // Populate languages
+          const languagesList = document.getElementById("languages-list");
+          resumeData.languages.forEach((language) => {
+            const li = document.createElement("li");
+            li.textContent = language;
+            languagesList.appendChild(li);
+          });
+
+          // Populate education history
+          const educationList = document.getElementById("education-list");
+          resumeData.education.forEach((entry) => {
+            educationList.innerHTML += `
+        <li>
+          <i class="fa fa-graduation-cap"></i>
+          <strong>${entry.institutionName}</strong> – ${entry.degree} in ${entry.fieldOfStudy} |
+          <em>${entry.startDate} - ${entry.endDate}</em> | Grade: ${entry.grade}
+        </li>`;
+          });
+
+          // Populate experience
+          const experienceList = document.getElementById("experience-list");
+          resumeData.experience.forEach((entry) => {
+            experienceList.innerHTML += `
+        <li>
+          <i class="fa fa-briefcase"></i>
+          <strong>${entry.jobTitle}</strong> at ${entry.companyName}<br>
+          <em>${entry.startDate} - ${entry.endDate}</em><br>
+          ${entry.fieldOfWork}<br>Responsibilities: ${entry.responsibilities}
+        </li>`;
+          });
+
+          // Populate project details
+          const projectsList = document.getElementById("projects-list");
+          resumeData.projects.forEach((entry) => {
+            projectsList.innerHTML += `
+        <li>
+          <i class="fa fa-code"></i>
+          <strong>${entry.title}</strong> – ${entry.description}<br>
+          <a href="${entry.link}" target="_blank">View Project</a>
+        </li>`;
+          });
+        } else {
+          alert("No resume data found.");
+        }
+      });
+
+      function populateProfileImage() {
+        const imageDataURL = resumeData.profileImage;
+        if (imageDataURL) {
+          document.getElementById("profile-image").src = imageDataURL;
+        }
+      }
+
+      // Call the function when the page loads
+      document.addEventListener("DOMContentLoaded", populateProfileImage);
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

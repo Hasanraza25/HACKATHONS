@@ -10,7 +10,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 
@@ -76,25 +76,20 @@
 
               <div class="input-field languages-container">
                 <label>Language</label>
-                <input
-                  type="text"
-                  id="languageInput"
-                  placeholder="e.g. English, Spanish"
-                />
+                <input type="text" id="languageInput" placeholder="Add comma after each language" />
                 <div id="languagesList"></div>
               </div>
               
-          
               <div class="input-field">
                 <label>LinkedIn</label>
-                <input type="url" id="linkedin-input" placeholder="e.g. https://www.linkedin.com/in/your-profile" />
-            </div>
-            
-            <div class="input-field">
+                <input type="text" id="linkedin-input" placeholder="e.g. Hasan Raza" />
+              </div>
+  
+              <div class="input-field">
                 <label>GitHub</label>
-                <input type="url" id="github-input" placeholder="e.g. https://github.com/your-profile" />
-            </div>
-          
+                <input type="text" id="github-input" placeholder="e.g. Hasanraza25" />
+              </div>
+
               <div class="textarea-field">
                   <label>Address</label>
                   <textarea id="my-address" placeholder="e.g. 123 Main St, Apt 4B, Springfield, IL 62704"></textarea>
@@ -150,14 +145,13 @@
 
           <div class="details skills">
             <span class="title">Skills</span>
-            <div class="skills-container">
-                <input
-                    type="text"
-                    id="skillInput"
-                    placeholder="Enter a skill and press Enter"
-                />
-                <div id="skillsList"></div>
+            <div class="skills-container" style="position: relative; display: flex; align-items: center;">
+              <input type="text" id="skillInput" placeholder="Enter a skill" style="width: 100%; padding-right: 40px;" />
+              <button id="addSkillBtn" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background-color: #007BFF; color: white; border: none; padding: 8px; cursor: pointer; border-radius: 50%; width: 30px; height: 30px; display: flex; justify-content: center; align-items: center;">
+                &#10148; <!-- This is the right arrow symbol -->
+              </button>
             </div>
+            <div id="skillsList"></div>
           </div>
 
           <div class="line"></div>
@@ -336,7 +330,8 @@
         </div>
       </div>
       
-      <button type="button" id="downloadResumeBtn">Download Resume</button>
+      <button type="button" id="downloadResumeBtn">Download Resume as PDF</button>
+      <button type="button" id="downloadResumePngBtn">Download Resume as PNG</button>
 
 
     </div>
